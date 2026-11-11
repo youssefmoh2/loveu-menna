@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e1721" />
+  <meta name="description" content="رسالة صغيرة من يوسف إلى منه" />
+  <title>يوسف × منه | حاجة بسيطة ليكي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#1e1721;
+      --bg-deep:#140f18;
+      --panel:#2b222e;
+      --panel-light:#332934;
+      --text:#fbf4f1;
+      --muted:#b9aab9;
+      --rose:#e9a9b2;
+      --rose-strong:#d8879a;
+      --line:rgba(255,232,232,.13);
+      --cream:#fff0e6;
+      --ease:cubic-bezier(.21,.8,.24,1);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-width:320px;color:var(--text);font-family:'Alexandria',Tahoma,Arial,sans-serif;background:var(--bg);overflow-x:hidden}
+    body:not(.is-entered){overflow:hidden}
+    button{font:inherit;cursor:pointer}
+    button:focus-visible,a:focus-visible{outline:3px solid var(--rose);outline-offset:5px}
+    ::selection{background:var(--rose);color:#291a27}
+    .grain{pointer-events:none;position:fixed;z-index:1;inset:0;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+    .ambient{pointer-events:none;position:absolute;border-radius:50%;filter:blur(5px)}
+    .ambient--one{top:-330px;left:-230px;width:720px;height:720px;background:radial-gradient(circle,rgba(157,75,103,.20),transparent 67%)}
+    .ambient--two{bottom:-300px;right:-250px;width:650px;height:650px;background:radial-gradient(circle,rgba(155,117,133,.12),transparent 65%)}
+    .intro{position:fixed;z-index:30;inset:0;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,#3a2434 0,#261a29 45%,#18121c 100%);transition:opacity .8s ease,visibility .8s}
+    .intro::before,.intro::after{content:'';position:absolute;border:1px solid rgba(234,175,184,.08);border-radius:50%;width:min(90vw,750px);aspect-ratio:1;z-index:-1;pointer-events:none}
+    .intro::after{width:min(125vw,1040px)}
+    .intro.dismissed{opacity:0;visibility:hidden;pointer-events:none}
+    .intro-content{width:min(100% - 32px,600px);text-align:center;position:relative;padding:20px 0 50px}
+    .micro{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--rose);font-weight:600}
+    .intro .micro{margin-bottom:22px;display:inline-block}
+    .envelope-wrap{height:272px;display:grid;place-items:center;perspective:900px;margin-block:6px 3px}
+    .envelope{width:min(345px,76vw);aspect-ratio:1.58;position:relative;filter:drop-shadow(0 22px 28px rgba(0,0,0,.23));transform:rotate(-3deg);transition:transform 1s var(--ease)}
+    .envelope__back{position:absolute;inset:0;border-radius:8px;background:#ae6177}
+    .envelope__paper{position:absolute;left:7%;right:7%;top:10%;height:82%;border-radius:5px;background:#fff1e9;z-index:2;display:flex;align-items:center;justify-content:flex-start;flex-direction:column;padding:23px 12px;gap:11px;transform:translateY(0);transition:transform 1s .33s var(--ease)}
+    .envelope__paper small{font-size:11px;color:#b47d88}.envelope__paper strong{font-size:22px;font-weight:600;color:#593744}
+    .envelope__left,.envelope__right,.envelope__front,.envelope__flap{position:absolute;inset:0}
+    .envelope__left{z-index:3;background:#c27c91;clip-path:polygon(0 0,50% 52%,0 100%)}
+    .envelope__right{z-index:3;background:#b96f86;clip-path:polygon(100% 0,50% 52%,100% 100%)}
+    .envelope__front{z-index:4;background:#cb8296;clip-path:polygon(0 100%,50% 47%,100% 100%);border-radius:0 0 8px 8px}
+    .envelope__flap{z-index:6;clip-path:polygon(0 0,100% 0,50% 62%);background:#dc97a9;transform-origin:center top;transition:transform .75s var(--ease),z-index 0s .35s;backface-visibility:visible}
+    .envelope__seal{position:absolute;z-index:7;top:43%;left:50%;transform:translate(-50%,-50%);width:49px;height:49px;border-radius:50%;display:grid;place-items:center;background:#8e425b;border:1px solid rgba(255,255,255,.25);color:#ffe4e7;font-family:Georgia,serif;font-size:13px;font-weight:bold;box-shadow:0 4px 10px rgba(46,21,35,.20);transition:opacity .25s}
+    .intro.opening .envelope{transform:rotate(0deg) translateY(10px) scale(1.035)}
+    .intro.opening .envelope__flap{transform:rotateX(180deg);z-index:1}
+    .intro.opening .envelope__seal{opacity:0}
+    .intro.opening .envelope__paper{transform:translateY(-94px)}
+    .intro-title{margin:5px 0 12px;font-size:clamp(29px,6vw,43px);font-weight:600;letter-spacing:-.06em}
+    .intro-subtitle{margin:0 auto 29px;font-weight:300;line-height:2.1;color:#d0bfc9;font-size:13px}
+    .pill-btn{border:0;min-width:155px;min-height:47px;padding:13px 28px;color:#2c1723;background:linear-gradient(135deg,#f6c3c4,#d994a3);border-radius:999px;font-size:12px;font-weight:700;box-shadow:0 9px 25px rgba(215,129,150,.17);transition:transform .22s,box-shadow .22s}
+    .pill-btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(215,129,150,.23)}
+    .pill-btn:disabled{cursor:default;opacity:.8;transform:none}
+    .intro-small{display:block;margin-top:19px;color:#93818e;font-size:10px}
+    .site{position:relative;opacity:0;transform:translateY(16px);transition:opacity 1s .12s,transform 1s .12s;pointer-events:none}
+    body.is-entered .site{opacity:1;transform:none;pointer-events:auto}
+    .progress{position:fixed;z-index:10;top:0;right:0;height:2px;background:var(--rose);width:0;transition:width .08s linear}
+    .topbar{height:84px;display:flex;justify-content:space-between;align-items:center;width:min(100% - 60px,1040px);margin:0 auto;position:relative;z-index:3}
+    .brand{font-family:Georgia,'Times New Roman',serif;direction:ltr;font-size:18px;letter-spacing:.04em;color:#f6d7d7}
+    .brand span{color:#d998a8;padding:0 7px}
+    .topbar-label{font-size:10px;letter-spacing:.04em;color:#9d8b9d}
+    .topbar-button{border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--muted);padding:10px 16px;border-radius:60px;font-size:10px;transition:background .2s,color .2s}
+    .topbar-button:hover{background:rgba(255,255,255,.08);color:white}
+    .hero{min-height:calc(100svh - 84px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;isolation:isolate;padding:65px 20px 120px}
+    .hero::before{content:'';position:absolute;z-index:-1;inset:-84px 0 0;background:radial-gradient(ellipse at 50% 41%,rgba(125,72,103,.24),transparent 53%)}
+    .hero-orbit{width:min(70vw,430px);aspect-ratio:1;position:absolute;z-index:-1;border:1px solid rgba(238,190,193,.10);border-radius:50%;top:47%;left:50%;transform:translate(-50%,-50%)}
+    .hero-orbit::after{content:'';position:absolute;inset:22px;border:1px solid rgba(238,190,193,.08);border-radius:50%}
+    .eyebrow{font-size:10px;font-weight:500;letter-spacing:.10em;color:var(--rose);margin-bottom:24px;display:flex;align-items:center;gap:12px}
+    .eyebrow::before,.eyebrow::after{content:'';display:block;height:1px;width:23px;background:rgba(224,166,180,.46)}
+    .hero h1{font-weight:500;line-height:1.62;letter-spacing:-.06em;font-size:clamp(35px,7vw,74px);margin:0 0 20px}
+    .hero h1 em{font-style:normal;color:var(--rose)}
+    .hero-text{font-weight:300;color:#bcaebf;line-height:2.4;font-size:clamp(12px,1.7vw,15px);max-width:480px;margin:0 0 38px}
+    .line-symbol{display:flex;gap:7px;align-items:center;justify-content:center;color:#a88497;margin-bottom:30px}
+    .line-symbol span{width:6px;height:6px;border:1px solid currentColor;border-radius:50%}.line-symbol span:nth-child(2){width:4px;height:4px;background:currentColor;border:0}
+    .scroll-hint{position:absolute;bottom:42px;display:flex;gap:9px;align-items:center;flex-direction:column;color:#8f8192;font-size:10px}
+    .scroll-hint i{display:block;width:1px;height:36px;background:linear-gradient(transparent,#e1adb8);animation:lineGrow 1.9s ease-in-out infinite alternate}
+    @keyframes lineGrow{from{transform:scaleY(.55);opacity:.4}to{transform:scaleY(1);opacity:1}}
+    .section{position:relative;padding:115px 22px}.container{width:min(100%,990px);margin:0 auto}
+    .section-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:42px}
+    .section-tag{font-size:11px;color:var(--rose);letter-spacing:.08em;display:block;margin-bottom:16px}
+    .section-title{font-weight:500;font-size:clamp(25px,4.1vw,42px);letter-spacing:-.055em;line-height:1.65;margin:0}
+    .section-desc{font-size:12px;line-height:2;color:#938a98;max-width:270px;margin:0 0 7px}
+    .notes-section{border-top:1px solid var(--line);background:linear-gradient(180deg,#201821,#211924)}
+    .note-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .note-card{min-height:290px;background:linear-gradient(150deg,rgba(255,255,255,.064),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:19px;padding:29px 26px;position:relative;overflow:hidden;transition:transform .25s,background .25s,border-color .25s}
+    .note-card:hover,.note-card:focus-within{transform:translateY(-5px);border-color:rgba(233,169,178,.33)}
+    .note-card::after{content:'';position:absolute;bottom:-65px;left:-65px;width:170px;height:170px;border:1px solid rgba(255,255,255,.07);border-radius:50%;pointer-events:none}
+    .note-index{color:#dca5b3;font:400 12px Georgia,serif;display:block;direction:ltr;text-align:right;margin-bottom:64px}
+    .note-card h3{font-size:17px;line-height:1.8;font-weight:500;margin:0 0 9px;letter-spacing:-.03em}
+    .note-preview{color:#a497a7;font-size:11px;margin:0 0 20px;line-height:1.9}
+    .note-reveal{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:#f0b7bd;font-size:11px;padding:8px 0}
+    .note-reveal::before{content:'+';font-family:Arial,sans-serif;font-size:20px;font-weight:300}
+    .note-card.revealed .note-reveal::before{content:'−'}
+    .note-answer{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s var(--ease),opacity .3s;}
+    .note-answer>div{overflow:hidden}
+    .note-answer p{margin:9px 0 12px;color:#d8cbd3;line-height:2.2;font-size:12px;font-weight:300}
+    .note-card.revealed .note-answer{grid-template-rows:1fr;opacity:1}
+    .note-card.revealed{border-color:rgba(233,169,178,.4)}
+    .interactive-section{padding-block:120px;background:radial-gradient(ellipse at 50% 50%,rgba(96,59,80,.20),transparent 60%),#19131d}
+    .interactive-panel{padding:60px 38px;border:1px solid rgba(248,215,212,.12);border-radius:25px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));text-align:center;box-shadow:0 25px 85px rgba(0,0,0,.11)}
+    .interactive-panel .section-title{font-size:clamp(24px,4vw,37px)}
+    .panel-sub{color:#b8a9b5;font-size:12px;line-height:2.2;margin:11px auto 32px}
+    .choice-row{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px}
+    .choice{border:1px solid rgba(250,216,222,.20);border-radius:999px;padding:14px 19px;color:#dfc9d5;background:transparent;font-size:11px;transition:background .2s,color .2s,border-color .2s,transform .2s}
+    .choice:hover{transform:translateY(-2px);border-color:rgba(250,216,222,.5)}
+    .choice[aria-pressed="true"]{background:#e7a7b2;color:#281924;border-color:#e7a7b2}
+    .response{max-width:600px;margin:33px auto 0;min-height:102px;display:grid;place-items:center;border-top:1px solid var(--line);padding-top:27px}
+    .response p{font-size:clamp(13px,2vw,17px);font-weight:300;line-height:2.1;margin:0;color:#f9e8e7;animation:fadeSlide .4s ease}
+    @keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .last-section{padding-block:140px 125px;min-height:740px;display:grid;align-items:center;background:radial-gradient(ellipse at 50% 92%,rgba(130,78,103,.14),transparent 55%),#201821}
+    .letter{max-width:710px;margin:auto;text-align:center;position:relative}
+    .letter::before{content:'“';font-family:Georgia,serif;font-size:125px;display:block;line-height:.7;color:rgba(225,155,173,.19);margin-bottom:27px}
+    .letter .section-tag{margin-bottom:22px}
+    .letter h2{font-size:clamp(31px,5vw,53px);line-height:1.55;letter-spacing:-.05em;font-weight:500;margin:0 0 27px}
+    .letter p{font-weight:300;font-size:clamp(13px,1.7vw,16px);line-height:2.65;color:#cdbecb;margin:0 auto 32px;max-width:640px}
+    .letter .personal-message{max-width:650px;margin:16px auto 32px;color:#f8e3e5;font-weight:400;font-size:clamp(14px,1.9vw,18px);line-height:2.45}
+    .letter .final-quote{max-width:590px;margin:45px auto 0;padding:32px 16px 4px;border-top:1px solid rgba(239,185,191,.22)}
+    .letter .final-quote p{font-size:clamp(18px,3vw,26px);font-weight:500;line-height:2.1;color:#f0abb8;margin:0 auto}
+    .signature{font-weight:500;color:#f0abb8;font-size:22px;margin:35px 0 48px;display:block}
+    .signature::before{content:'—';padding-left:13px;color:#ae849a}
+    .replay{padding:15px 22px;border:1px solid rgba(231,167,178,.35);background:transparent;color:#efb9bf;border-radius:999px;font-size:11px;transition:background .2s}
+    .replay:hover{background:rgba(231,167,178,.1)}
+    footer{border-top:1px solid var(--line);padding:28px 25px;text-align:center;color:#897987;font-size:10px;line-height:2}
+    .reveal-on-scroll{opacity:0;transform:translateY(25px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+    .reveal-on-scroll.visible{opacity:1;transform:translateY(0)}
+    @media (max-width:800px){.topbar{width:min(100% - 36px,990px)}.section{padding-block:90px}.note-grid{grid-template-columns:1fr}.note-card{min-height:auto;padding:23px 25px}.note-index{margin-bottom:34px}.section-head{flex-direction:column;align-items:flex-start}.section-desc{max-width:none}.interactive-panel{padding:48px 20px}.last-section{min-height:610px}}
+    @media (max-width:540px){.topbar{height:70px}.topbar-label{display:none}.brand{font-size:16px}.hero{min-height:calc(100svh - 70px);padding:45px 24px 105px}.hero h1{font-size:clamp(36px,9.8vw,49px)}.hero-text{max-width:315px}.hero-orbit{width:86vw}.section{padding:83px 19px}.section-head{margin-bottom:26px}.note-grid{gap:12px}.interactive-panel{padding:44px 17px;border-radius:19px}.choice-row{gap:8px}.choice{font-size:10px;padding:13px 16px}.response{min-height:128px}.last-section{padding-block:100px}.letter::before{font-size:95px}.letter p{line-height:2.45}.envelope-wrap{height:250px}.intro-title{font-size:35px}.intro-subtitle{font-size:12px}.intro-content{padding-bottom:20px}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="رسالة من يوسف إلى منه">
+    <div class="ambient ambient--one" aria-hidden="true"></div>
+    <div class="ambient ambient--two" aria-hidden="true"></div>
+    <div class="intro-content">
+      <span class="micro">JUST FOR YOU</span>
+      <div class="envelope-wrap" aria-hidden="true">
+        <div class="envelope">
+          <div class="envelope__back"></div>
+          <div class="envelope__paper"><small>من يوسف</small><strong>إلى منه</strong></div>
+          <div class="envelope__left"></div><div class="envelope__right"></div>
+          <div class="envelope__front"></div><div class="envelope__flap"></div>
+          <div class="envelope__seal">Y·M</div>
+        </div>
+      </div>
+      <h1 class="intro-title">يوسف <span style="color:#d89cae">×</span> منه</h1>
+      <p class="intro-subtitle">مش مناسبة معيّنة… بس في حاجة بسيطة ليكي.</p>
+      <button class="pill-btn" id="openBtn" type="button">افتحي الرسالة</button>
+      <small class="intro-small">اتعملت مخصوص ليكي</small>
+    </div>
+  </div>
+
+  <div class="site" id="site">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand">Y <span>×</span> M</div>
+      <span class="topbar-label">حاجة صغيرة، مش أكتر</span>
+      <button class="topbar-button" type="button" id="topReset">من الأول ↺</button>
+    </header>
+
+    <main>
+      <section class="hero" id="hello" aria-labelledby="heroTitle">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <span class="eyebrow">إلى منه، من يوسف</span>
+        <h1 id="heroTitle">مش كل حاجة حلوة<br /><em>محتاجة مناسبة.</em></h1>
+        <div class="line-symbol" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="hero-text">حبيت أعملك حاجة بسيطة وسط اليوم العادي.<br />من غير كلام كتير، ومن غير مبالغة.</p>
+        <button class="pill-btn" type="button" id="goNotes">كمّلي</button>
+        <div class="scroll-hint">انزلي شوية<i></i></div>
+      </section>
+
+      <section class="section notes-section" id="notes" aria-labelledby="notesHeading">
+        <div class="container">
+          <div class="section-head reveal-on-scroll">
+            <div><span class="section-tag">01 / حاجات بلاحظها</span><h2 class="section-title" id="notesHeading">ثلاث حاجات حبيت أقولهم</h2></div>
+            <p class="section-desc">اضغطي على أي كارت، وخدي وقتك في قرايته.</p>
+          </div>
+          <div class="note-grid">
+            <article class="note-card reveal-on-scroll">
+              <span class="note-index">01</span><h3>الكلام معاكي</h3><p class="note-preview">في حاجة مريحة فيه.</p>
+              <button class="note-reveal" type="button" aria-expanded="false" aria-controls="note1">اقري الباقي</button>
+              <div class="note-answer" id="note1"><div><p>بحب إننا نقدر نتكلم في أي حاجة، حتى لو موضوع صغير ومالوش لازمة.</p></div></div>
+            </article>
+            <article class="note-card reveal-on-scroll">
+              <span class="note-index">02</span><h3>وجودك في يومي</h3><p class="note-preview">بيفرق أكتر مما تتخيلي.</p>
+              <button class="note-reveal" type="button" aria-expanded="false" aria-controls="note2">اقري الباقي</button>
+              <div class="note-answer" id="note2"><div><p>أوقات رسالة بسيطة منك بتكون أحسن حاجة حصلت في اليوم كله.</p></div></div>
+            </article>
+            <article class="note-card reveal-on-scroll">
+              <span class="note-index">03</span><h3>التفاصيل الصغيرة</h3><p class="note-preview">مش بتعدّي من غير ما أخد بالي.</p>
+              <button class="note-reveal" type="button" aria-expanded="false" aria-controls="note3">اقري الباقي</button>
+              <div class="note-answer" id="note3"><div><p>طريقة كلامك، وضحكتك، والحاجات اللي بتحكيهالي من غير ترتيب… كلها بتفضل في بالي.</p></div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section interactive-section" id="moment" aria-labelledby="momentHeading">
+        <div class="container">
+          <div class="interactive-panel reveal-on-scroll">
+            <span class="section-tag">02 / على حسب يومك</span>
+            <h2 class="section-title" id="momentHeading">إيه اللي محتاجة تسمعيه النهارده؟</h2>
+            <p class="panel-sub">اختاري اللي شبه مودك دلوقتي.</p>
+            <div class="choice-row" role="group" aria-label="اختاري حسب مزاجك">
+              <button class="choice" type="button" data-note="tired" aria-pressed="false">لو يومك كان طويل</button>
+              <button class="choice" type="button" data-note="happy" aria-pressed="false">لو مبسوطة</button>
+              <button class="choice" type="button" data-note="random" aria-pressed="false">من غير سبب</button>
+            </div>
+            <div class="response" aria-live="polite" aria-atomic="true"><p id="responseText">كل اختيار فيهم وراه كلمة مختلفة.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section last-section" aria-labelledby="endHeading">
+        <div class="container">
+          <div class="letter reveal-on-scroll">
+            <span class="section-tag">03 / آخر حاجة</span>
+            <h2 id="endHeading">يا منه،</h2>
+            <p>أنا مش دايمًا بعرف أعبّر عن كل حاجة بالكلام، بس حبيت أقولك إني بقدّر وجودك في حياتي. بحب وقتنا سوا، وبحب إن الكلام معاكي بيكون على طبيعته. وأتمنى تفضلي مرتاحة ومبسوطة، حتى في الأيام اللي بتكون تقيلة شوية.</p>
+            <p class="personal-message">إنتِ الحاجة الوحيدة اللي أنا عمري ما هعرف أبعد عنها، وهفضل أحبك وأعمل كل حاجة عشان تبقي موجودة معايا. ومهما حصل، هفضل أحبك، ولا حبي ليكي هيقل، ولا هحب حد غيرك، ولا عايز حد غيرك.</p>
+            <div class="final-quote"><p>لو عمري الجاي إنتِ مش فيه، أنا مش عايز أعيشه.</p></div>
+            <span class="signature">يوسف</span>
+            <button class="replay" id="replayBtn" type="button">ارجعي للبداية ↺</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>يوسف × منه <span aria-hidden="true">·</span> معمولة بحب، ومن غير مناسبة</footer>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+      const intro = document.getElementById('intro');
+      const openBtn = document.getElementById('openBtn');
+      const progress = document.getElementById('progress');
+      const messages = {
+        tired: 'خدي اليوم على مهلك. مش لازم كل حاجة تخلص دلوقتي، وأنا موجود لو حابة تتكلمي.',
+        happy: 'حلو إنك مبسوطة. أتمنى اليوم يكمّل معاكي بنفس الخفة دي.',
+        random: 'من غير مناسبة ولا سبب كبير: مبسوط إنك موجودة في حياتي.'
+      };
+      let opening = false;
+      let timer;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function enter(){
+        if(opening) return;
+        opening = true;
+        openBtn.disabled = true;
+        openBtn.textContent = '...';
+        intro.classList.add('opening');
+        timer = window.setTimeout(() => {
+          document.body.classList.add('is-entered');
+          intro.classList.add('dismissed');
+          intro.setAttribute('aria-hidden','true');
+          intro.setAttribute('aria-modal','false');
+          document.getElementById('goNotes').focus({preventScroll:true});
+          observeElements();
+        }, reduceMotion ? 100 : 1550);
+      }
+      function restart(){
+        window.clearTimeout(timer);
+        window.scrollTo({top:0,behavior:'instant'});
+        document.body.classList.remove('is-entered');
+        intro.classList.remove('dismissed','opening');
+        intro.removeAttribute('aria-hidden');
+        intro.setAttribute('aria-modal','true');
+        openBtn.disabled = false;
+        openBtn.textContent = 'افتحي الرسالة';
+        document.querySelectorAll('.note-card').forEach(card => {
+          card.classList.remove('revealed');
+          const btn=card.querySelector('.note-reveal');
+          btn.setAttribute('aria-expanded','false');
+          btn.textContent='اقري الباقي';
+        });
+        document.querySelectorAll('.choice').forEach(btn=>btn.setAttribute('aria-pressed','false'));
+        document.getElementById('responseText').textContent='كل اختيار فيهم وراه كلمة مختلفة.';
+        opening=false;
+        openBtn.focus({preventScroll:true});
+      }
+      openBtn.addEventListener('click',enter);
+      document.getElementById('topReset').addEventListener('click',restart);
+      document.getElementById('replayBtn').addEventListener('click',restart);
+      document.getElementById('goNotes').addEventListener('click',()=>document.getElementById('notes').scrollIntoView({behavior:reduceMotion?'instant':'smooth'}));
+      document.querySelectorAll('.note-reveal').forEach(btn=>btn.addEventListener('click',()=>{
+        const card=btn.closest('.note-card');
+        const isOpen=card.classList.toggle('revealed');
+        btn.setAttribute('aria-expanded',String(isOpen));
+        btn.textContent=isOpen?'اقفلي الرسالة':'اقري الباقي';
+      }));
+      document.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+        document.querySelectorAll('.choice').forEach(other=>other.setAttribute('aria-pressed',String(other===btn)));
+        const target=document.getElementById('responseText');
+        target.textContent=messages[btn.dataset.note];
+        target.style.animation='none';
+        // Force animation to replay on each direct user selection.
+        void target.offsetHeight;
+        target.style.animation='';
+      }));
+      let observed=false;
+      function observeElements(){
+        if(observed) return;
+        observed=true;
+        const elements=document.querySelectorAll('.reveal-on-scroll');
+        if(!('IntersectionObserver' in window) || reduceMotion){
+          elements.forEach(el=>el.classList.add('visible'));return;
+        }
+        const observer=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
+          });
+        },{threshold:.09,rootMargin:'0px 0px -25px 0px'});
+        elements.forEach(el=>observer.observe(el));
+      }
+      let ticking=false;
+      window.addEventListener('scroll',()=>{
+        if(ticking) return;
+        ticking=true;
+        requestAnimationFrame(()=>{
+          const max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+          progress.style.width=Math.min(100,Math.max(0,window.scrollY/max*100))+'%';
+          ticking=false;
+        });
+      },{passive:true});
+    })();
+  </script>
+</body>
+</html>
